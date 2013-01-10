@@ -15,7 +15,13 @@ class postgresql::params {
       $listen_address = 'localhost'
       $port = 5432
     }
-    default: {
+    /(RedHat|CentOS)/: {
+      $version = '9.1'
+      $client_package = 'postgresql-client'
+      $server_package = 'postgresql-server'
+      $listen_address = 'localhost'
+      $port = 5432
+    }    default: {
       fail("Unsupported platform: ${::operatingsystem}")
     }
   }
