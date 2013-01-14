@@ -52,7 +52,7 @@ class postgresql::server (
   }
 
   file { "postgresql-server-config-$version":
-    name    => "/etc/postgresql/$version/main/postgresql.conf",
+    name    => $postgresql::params::postgresql_conf,
     ensure  => present,
     content => template('postgresql/postgresql.conf.erb'),
     owner   => 'postgres',
@@ -63,7 +63,7 @@ class postgresql::server (
   }
 
   file { "postgresql-server-hba-config-$version":
-    name    => "/etc/postgresql/$version/main/pg_hba.conf",
+    name    => $postgresql::params::pg_hba_conf,
     ensure  => present,
     content => template('postgresql/pg_hba.conf.erb'),
     owner   => 'postgres',

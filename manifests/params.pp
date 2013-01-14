@@ -1,27 +1,36 @@
 class postgresql::params {
-  $locale        = 'en_US.UTF-8'
+  $locale = 'en_US.UTF-8'
 
-  $ssl           = false
-  $ssl_ca_file   = undef  # the default is 'root.crt'
-  $ssl_cert_file = undef  # the default is 'server.crt'
-  $ssl_crl_file  = undef  # the default is 'root.crl'
-  $ssl_key_file  = undef  # the default is 'server.key'
+  $ssl = false
+  $ssl_ca_file = undef # the default is 'root.crt'
+  $ssl_cert_file = undef # the default is 'server.crt'
+  $ssl_crl_file = undef # the default is 'root.crl'
+  $ssl_key_file = undef # the default is 'server.key'
+
+
 
   case $::operatingsystem {
-    /(Ubuntu|Debian)/: {
+    /(Ubuntu|Debian)/ : {
       $version = '9.1'
       $client_package = 'postgresql-client'
       $server_package = "postgresql-${version}"
       $listen_address = 'localhost'
+      $postgresql_conf = "/etc/postgresql/$version/main/postgresql.conf"
+      $pg_hba_conf = "/etc/postgresql/$version/main/pg_hba.conf"
+
       $port = 5432
     }
-    /(RedHat|CentOS)/: {
+    /(RedHat|CentOS)/ : {
       $version = '9.1'
       $client_package = 'postgresql'
       $server_package = 'postgresql91-server'
       $listen_address = 'localhost'
+      $postgresql_conf = '/var/lib/pgsql/data/postgresql.conf'
+      $pg_hba_conf = '/var/lib/pgsql/data/pg_hba.conf'
+
       $port = 5432
-    }    default: {
+    }
+    default           : {
       fail("Unsupported platform: ${::operatingsystem}")
     }
   }
