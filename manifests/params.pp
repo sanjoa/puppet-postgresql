@@ -16,7 +16,7 @@ class postgresql::params {
       $port = 5432
     }
     /(RedHat|CentOS)/: {
-      $version = '9.1'
+      $version = ''
       $client_package = 'postgresql'
       $server_package = 'postgresql91-server'
       $listen_address = 'localhost'
