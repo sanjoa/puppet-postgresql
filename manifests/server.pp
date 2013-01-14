@@ -46,7 +46,7 @@ class postgresql::server (
   }
 
   package { "postgresql-server-$version":
-    name    => sprintf("%s-%s", $server_package, $version),
+    name    => $server_package,
     ensure  => present,
     require => $package_require,
   }
