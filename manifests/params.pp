@@ -25,8 +25,8 @@ class postgresql::params {
       $client_package = 'postgresql'
       $server_package = 'postgresql91-server'
       $listen_address = 'localhost'
-      $postgresql_conf = '/var/lib/pgsql/data/postgresql.conf'
-      $pg_hba_conf = '/var/lib/pgsql/data/pg_hba.conf'
+      $postgresql_conf = "/var/lib/pgsql/$version/data/postgresql.conf"
+      $pg_hba_conf = "/var/lib/pgsql/$version/data/pg_hba.conf"
 
       $port = 5432
     }
