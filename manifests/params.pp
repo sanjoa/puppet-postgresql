@@ -11,12 +11,12 @@ class postgresql::params {
     /(Ubuntu|Debian)/: {
       $version = '9.1'
       $client_package = 'postgresql-client'
-      $server_package = 'postgresql'
+      $server_package = "postgresql-${version}"
       $listen_address = 'localhost'
       $port = 5432
     }
     /(RedHat|CentOS)/: {
-      $version = ''
+      $version = '9.1'
       $client_package = 'postgresql'
       $server_package = 'postgresql91-server'
       $listen_address = 'localhost'
