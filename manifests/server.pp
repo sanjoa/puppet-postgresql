@@ -71,7 +71,7 @@ class postgresql::server (
     owner   => 'postgres',
     group   => 'postgres',
     mode    => '0644',
-    require => Package["postgresql-server-$version"],
+    require => Package["postgresql-initdb-$version"],
     notify  => $notify_service,
   }
 
@@ -82,7 +82,7 @@ class postgresql::server (
     owner   => 'postgres',
     group   => 'postgres',
     mode    => '0640',
-    require => Package["postgresql-server-$version"],
+    require => Package["postgresql-initdb-$version"],
     notify  => $notify_service,
   }
 
