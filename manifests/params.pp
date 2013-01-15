@@ -15,9 +15,13 @@ class postgresql::params {
       $client_package = 'postgresql-client'
       $server_package = "postgresql-${version}"
       $listen_address = 'localhost'
-      $postgresql_conf = "/etc/postgresql/$version/main/postgresql.conf"
-      $pg_hba_conf = "/etc/postgresql/$version/main/pg_hba.conf"
-
+      $postgresql_confdir = "/etc/postgresql/$version/main"
+      $postgresql_conf = "${postgresql_confdir}/postgresql.conf"
+      $pg_hba_conf = "${postgresql_confdir}/pg_hba.conf"
+      $pg_ident_conf = "${postgresql_confdir}/pg_ident.conf"
+      $service_name  = 'postgresql'
+      $socket_dir = '/var/run/postgresql'    
+      $provider = 'debian'
       $port = 5432
     }
     /(RedHat|CentOS)/ : {
@@ -25,9 +29,13 @@ class postgresql::params {
       $client_package = 'postgresql'
       $server_package = 'postgresql91-server'
       $listen_address = 'localhost'
-      $postgresql_conf = "/var/lib/pgsql/$version/data/postgresql.conf"
-      $pg_hba_conf = "/var/lib/pgsql/$version/data/pg_hba.conf"
-
+      $postgresql_confdir = "/var/lib/pgsql/$version/data"
+      $postgresql_conf = "${postgresql_confdir}/postgresql.conf"
+      $pg_hba_conf = "${postgresql_confdir}/pg_hba.conf"
+      $pg_ident_conf = "${postgresql_confdir}/pg_ident.conf"
+      $service_name = "postgresql-${version}"
+      $socket_dir = '/tmp'
+      $provider = 'redhat'
       $port = 5432
     }
     default           : {

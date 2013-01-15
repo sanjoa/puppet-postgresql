@@ -24,14 +24,27 @@ class postgresql::server (
   }
 
   if ($manage_service) {
+    exec { "postgresql-initdb-$version":
+      path    => '/usr/bin:/usr/sbin:/bin',
+      unless  => "test -d ${postgresql::params::postgresql_confdir}/",
+      command => "/sbin/service ${service_name} initdb",
+    }
+
+    file { 'run-dir':
+      ensure => 'directory',
+      path => '/var/run/postgresql',
+      owner => 'postgres',
+      group => 'postgres',
+    }
 
     service { "postgresql-system-$version":
-      name        => 'postgresql',
+      name        => $postgresql::params::service_name,
       enable      => true,
       ensure      => running,
       hasstatus   => false,
       hasrestart  => true,
-      provider    => 'debian',
+      provider    => $postgresql::params::provider,
+      require     => [Exec["postgresql-initdb-$version"],File['run-dir']],
       subscribe   => Package["postgresql-server-$version"],
     }
 
